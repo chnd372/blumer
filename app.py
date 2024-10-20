@@ -497,6 +497,7 @@ class Blum:
                     await self.my_tribe(token=token)
                     await self.daily_reward(token=token)
                     await self.dogs_drop(token=token)
+                    await self.balance_friends(token=token)
                     user_balance = await self.user_balance(token=token)
                     if user_balance is not None:
                         self.print_timestamp(
@@ -512,7 +513,6 @@ class Blum:
                                 self.print_timestamp(f"{Fore.YELLOW + Style.BRIGHT}[ Farming Can Be Claim At {datetime.fromtimestamp(user_balance['farming']['endTime'] / 1000).astimezone().strftime('%x %X %Z')} ]{Style.RESET_ALL}")
                         else:
                             await self.start_farming(token=token, available_balance=user_balance['availableBalance'])
-                    await self.balance_friends(token=token)
 
                 for (token, name) in accounts:
                     self.print_timestamp(
@@ -558,19 +558,19 @@ if __name__ == '__main__':
         queries_files.sort(key=lambda x: int(re.findall(r'\d+', x)[0]) if re.findall(r'\d+', x) else 0)
 
         blum.print_timestamp(
-            f"{Fore.MAGENTA + Style.BRIGHT}[ 1 ]{Style.RESET_ALL}"
+            f"{Fore.GREEN + Style.BRIGHT}[ 1 ]{Style.RESET_ALL}"
             f"{Fore.WHITE + Style.BRIGHT} | {Style.RESET_ALL}"
-            f"{Fore.CYAN + Style.BRIGHT}[ Split Queries ]{Style.RESET_ALL}"
+            f"{Fore.BLUE + Style.BRIGHT}[ Split Queries ]{Style.RESET_ALL}"
         )
         blum.print_timestamp(
-            f"{Fore.MAGENTA + Style.BRIGHT}[ 2 ]{Style.RESET_ALL}"
+            f"{Fore.GREEN + Style.BRIGHT}[ 2 ]{Style.RESET_ALL}"
             f"{Fore.WHITE + Style.BRIGHT} | {Style.RESET_ALL}"
-            f"{Fore.CYAN + Style.BRIGHT}[ Use Existing 'queries-*.txt' ]{Style.RESET_ALL}"
+            f"{Fore.BLUE + Style.BRIGHT}[ Use Existing 'queries-*.txt' ]{Style.RESET_ALL}"
         )
         blum.print_timestamp(
-            f"{Fore.MAGENTA + Style.BRIGHT}[ 3 ]{Style.RESET_ALL}"
+            f"{Fore.GREEN + Style.BRIGHT}[ 3 ]{Style.RESET_ALL}"
             f"{Fore.WHITE + Style.BRIGHT} | {Style.RESET_ALL}"
-            f"{Fore.CYAN + Style.BRIGHT}[ Use 'queries.txt' Without Splitting ]{Style.RESET_ALL}"
+            f"{Fore.BLUE + Style.BRIGHT}[ Use 'queries.txt' Without Splitting ]{Style.RESET_ALL}"
         )
         initial_choice = int(input(
             f"{Fore.BLUE + Style.BRIGHT}[ {datetime.now().astimezone().strftime('%x %X %Z')} ]{Style.RESET_ALL}"
@@ -581,15 +581,15 @@ if __name__ == '__main__':
 
         if initial_choice == 1:
             accounts = int(input(
-                f"{Fore.YELLOW + Style.BRIGHT}[ How Much Account That You Want To Process Each Terminal ]{Style.RESET_ALL}"
+                f"{Fore.BLUE + Style.BRIGHT}[ {datetime.now().astimezone().strftime('%x %X %Z')} ]{Style.RESET_ALL}"
+                f"{Fore.WHITE + Style.BRIGHT} | {Style.RESET_ALL}"
+                f"{Fore.YELLOW + Style.BRIGHT}[ How Much Account Each 'queries-*.txt'? ]{Style.RESET_ALL}"
                 f"{Fore.WHITE + Style.BRIGHT} | {Style.RESET_ALL}"
             ))
-            blum.print_timestamp(f"{Fore.CYAN + Style.BRIGHT}[ Processing Queries To Generate Files ]{Style.RESET_ALL}")
             blum.process_queries(lines_per_file=accounts)
 
             queries_files = [f for f in os.listdir() if f.startswith('queries-') and f.endswith('.txt')]
             queries_files.sort(key=lambda x: int(re.findall(r'\d+', x)[0]) if re.findall(r'\d+', x) else 0)
-
             if not queries_files:
                 raise FileNotFoundError("No 'queries-*.txt' Files Found")
         elif initial_choice == 2:
@@ -604,9 +604,9 @@ if __name__ == '__main__':
             blum.print_timestamp(f"{Fore.MAGENTA + Style.BRIGHT}[ Select The Queries File To Use ]{Style.RESET_ALL}")
             for i, queries_file in enumerate(queries_files, start=1):
                 blum.print_timestamp(
-                    f"{Fore.MAGENTA + Style.BRIGHT}[ {i} ]{Style.RESET_ALL}"
+                    f"{Fore.GREEN + Style.BRIGHT}[ {i} ]{Style.RESET_ALL}"
                     f"{Fore.WHITE + Style.BRIGHT} | {Style.RESET_ALL}"
-                    f"{Fore.CYAN + Style.BRIGHT}[ {queries_file} ]{Style.RESET_ALL}"
+                    f"{Fore.BLUE + Style.BRIGHT}[ {queries_file} ]{Style.RESET_ALL}"
                 )
 
             choice = int(input(
